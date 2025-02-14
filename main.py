@@ -1,12 +1,13 @@
 import random
 from personagem import Jogador
-from inimigos import INIMIGOS
+from inimigos import TEMPLATES_INIMIGOS, criar_inimigo
 from combate import batalha
 
 def explorar(jogador):
     print("\nVocê saiu para explorar...")
     if random.random() < 0.7:
-        inimigo = random.choice(INIMIGOS)
+        template = random.choice(TEMPLATES_INIMIGOS)
+        inimigo = criar_inimigo(template)
         return batalha(jogador, inimigo)
     print("Você não encontrou nada interessante...")
     return True
