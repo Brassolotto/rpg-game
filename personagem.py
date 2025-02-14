@@ -1,3 +1,5 @@
+from classes import GUERREIRO, MAGO, ARQUEIRO
+
 class Jogador:
 
     def __init__(self, nome, classe):
@@ -37,8 +39,10 @@ class Jogador:
         
     def mostrar_status(self):
         print(f"\nStatus de {self.nome}")
-        print(f"Vida: {self.vida}")
+        print(f"Classe: {self.classe.nome}")
         print(f"Nível: {self.nivel}")
+        print(f"Experiência: {self.experiencia}/{self.nivel * 100}")
+        print(f"Vida: {self.vida}/{self.vida_maxima}")
         print(f"Força: {self.forca}")
         print(f"Destreza: {self.destreza}")
         print(f"Inteligência: {self.inteligencia}")
@@ -56,7 +60,8 @@ class Jogador:
             self.aumentar_atributos()
 
     def aumentar_atributos(self):
-        self.vida += 10
+        self.vida_maxima += 10
+        self.vida = self.vida_maxima
         self.forca += 2
         self.destreza += 2
         self.inteligencia += 2

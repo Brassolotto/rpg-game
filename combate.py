@@ -1,4 +1,5 @@
 import random
+from personagem import Jogador
 
 def calcular_dano(atacante):
     if isinstance(atacante, Jogador):
@@ -34,7 +35,7 @@ def batalha(jogador, inimigo):
             print("Você falhou em fugir!")
             dano_inimigo = calcular_dano(inimigo)
             jogador.vida -= dano_inimigo
-            print(f"O {inimigo.nome} causou {dano.inimigo} de dano em você!")
+            print(f"O {inimigo.nome} causou {dano_inimigo} de dano em você!")
 
     if jogador.vida <= 0:
         print("Você foi derrotado!")
