@@ -10,11 +10,12 @@ def batalha(jogador, inimigo):
     print(f"\nUm {inimigo.nome} apareceu!")
 
     while inimigo.esta_vivo() and jogador.vida > 0:
-        print(f"\nSua vida: {jogador.vida}")
+        print(f"\nSua vida: {jogador.vida} | Energia: {jogador.energia}")
         print(f"\nVida do {inimigo.nome}: {inimigo.vida}")
         print("\nO que você quer fazer?")
         print("1 - Atacar")
-        print("2 - Fugir")
+        print("2 - Usar habilidade")
+        print("3 - Fugir")
 
         escolha = input("Escolha: ")
 
@@ -27,8 +28,27 @@ def batalha(jogador, inimigo):
                 dano_inimigo = calcular_dano(inimigo)
                 jogador.vida -= dano_inimigo
                 print(f"O {inimigo.nome} causou {dano_inimigo} de dano a você!")
+                pass
 
         elif escolha == "2":
+            print("\nHabilidade disponíveis:")
+            for i, hab in enumerate(jogador.habilidades, 1):
+                print(f"{i} - {hab.nome} (Energia: {hab.custo_energia})")
+                print(f" {hab.descricao}")
+
+                try:
+                    hab_escolha = int(input("Escolha a habilidade (0 para voltar): ")) - 1
+                    if 0 <= hab_escolha < len(jogador.habilidades):
+                        if jogador.usar_habilidade(jogador.habilidades[hab_escolha], inimigo):
+                            if inimigo.esta_vivo():
+                                pass
+                    else:
+                        print("Habilidade inválida!")
+
+                except ValueError:
+                    print("Escolha inválida!")
+
+        elif escolha == "3":
             if random.random() < 0.5:
                 print("Você fugiu com sucesso!")
                 return False

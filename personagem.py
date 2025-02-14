@@ -1,4 +1,7 @@
 from classes import GUERREIRO, MAGO, ARQUEIRO
+from habilidades import (
+    GOLPE_PESADO, GRITO_DE_GUERRA, BOLA_DE_FOGO, RAIO_DE_GELO, FLECHA_PRECISA, CHUVA_DE_FLECHAS
+)
 
 class Jogador:
 
@@ -12,6 +15,38 @@ class Jogador:
         self.forca = 10 + classe.bonus_forca
         self.destreza = 10 + classe.bonus_destreza
         self.inteligencia = 10 + classe.bonus_inteligencia
+        self.energia = 100
+        self.energia_maxima = 100
+        self.habilidades = []
+        self.definir_habilidades()
+
+    def definir_habilidades(self):
+        if self.classe.nome == "Guerreiro":
+            self.habilidades = [GOLPE_PESADO, GRITO_DE_GUERRA]
+        elif self.classe.nome == "Mago":
+            self.habilidades = [BOLA_DE_FOGO, RAIO_DE_GELO]
+        elif self.classe.nome == "Arqueiro":
+            self.habilidades = [FLECHA_PRECISA, CHUVA_DE_FLECHAS]
+
+    def usar_habilidade(self, habilidade, alvo):
+        if self.energia < habilidade.custo_energia:
+            print("Energia insuficiente")
+            return False
+        
+        self.energia -= habilidade.custo_energia
+        dano_base = habilidade.dano
+
+        # Bônus baseado no atributo principal da classe
+        if self.classe.nome == "Guerreiro":
+            dano_total = dano_base + (self.forca // 2)
+        elif self.classe.nome == "Mago":
+            dano_total = dano_base + (self.inteligencia // 2)
+        else: # Arqueiro
+            dano_total = dano_base + (self.destreza // 2)
+
+        alvo.vida -= dano_total
+        print(f"Você usou {habilidade.nome} e causou {dano_total} de dano!")
+        return True
         
     @classmethod
     def criar_personagem(cls):
