@@ -1,3 +1,4 @@
+import pickle
 from classes import GUERREIRO, MAGO, ARQUEIRO
 from habilidades import (
     GOLPE_PESADO, GRITO_DE_GUERRA, BOLA_DE_FOGO, RAIO_DE_GELO, FLECHA_PRECISA, CHUVA_DE_FLECHAS
@@ -125,4 +126,20 @@ class Jogador:
                 print("Opção inválida!")
         except ValueError:
             print("Opção inválida!")
+
+    def salvar_jogo(self, nome_arquivo="savegame.pkl"):
+        with open(nome_arquivo, "wb") as arquivo:
+            pickle.dump(self, arquivo)
+        print("Jogo salvo com sucesso!")
+
+    @staticmethod
+    def carregar_jogo(nome_arquivo="savegame.pkl"):
+        try:
+            with open(nome_arquivo, "rb") as arquivo:
+                jogador = pickle.load(arquivo)
+            print("Jogo carregado com sucesso!")
+            return jogador
+        except FileNotFoundError:
+            print("Nenhum jogo salvo encontrado!")
+            return None 
            

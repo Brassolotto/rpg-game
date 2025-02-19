@@ -20,7 +20,8 @@ def loop_jogo(jogador):
         print("2 - Explorar")
         print("3 - Descansar")
         print("4 - Usar item")
-        print("5 - Sair")
+        print("5 - Salvar jogo")
+        print("6 - Sair")
 
         opcao = input("Escolha uma opção: ")
 
@@ -36,12 +37,29 @@ def loop_jogo(jogador):
         elif opcao == "4":
             jogador.usar_item()
         elif opcao == "5":
+            jogador.salvar_jogo()
+        elif opcao == "6":
             print("Até a próxima aventura!")
             break
 
 def main():
+    print("=== Bem-vindo ao RPG ===")
+    print("1 - Novo Jogo")
+    print("2 - Carregar Jogo")
 
-    jogador = Jogador.criar_personagem()
+    escolha = input("Escolha uma opção: ")
+
+    if escolha == "1":
+        jogador = Jogador.criar_personagem()
+    elif escolha == "2":
+        jogador = Jogador.carregar_jogo()
+        if not jogador:
+            print("Iniciando um novo jogo...")
+            jogador = Jogador.criar_personagem()
+    else:
+        print("Opção inválida!")
+        return
+    
     jogador.mostrar_status()
     jogador.adicionar_item(POCAO_VIDA)
     loop_jogo(jogador)
