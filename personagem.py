@@ -18,6 +18,7 @@ class Jogador:
         self.energia = 100
         self.energia_maxima = 100
         self.habilidades = []
+        self.inventario = []
         self.definir_habilidades()
 
     def definir_habilidades(self):
@@ -100,3 +101,28 @@ class Jogador:
         self.forca += 2
         self.destreza += 2
         self.inteligencia += 2
+
+    def adicionar_item(self, item):
+        self.inventario.append(item)
+        print(f"{item.nome} foi adicionado ao inventário!")
+
+    def usar_item(self):
+        if not self.inventario:
+            print("Seu inventário está vazio!")
+            return
+        print("\nItens no inventário:")
+        for i, item in enumerate(self.inventario, start=1):
+            print(f"{i} - {item.nome}: {item.descricao}")
+        escolha = input("Escolha um item para usar (0 para cancelar): ")
+        try:
+            escolha = int(escolha)
+            if escolha == 0:
+                return
+            if 1 <= escolha <= len(self.inventario):
+                item = self.inventario.pop(escolha - 1)
+                item.usar(self)
+            else:
+                print("Opção inválida!")
+        except ValueError:
+            print("Opção inválida!")
+           

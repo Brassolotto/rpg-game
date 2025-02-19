@@ -2,6 +2,7 @@ import random
 from personagem import Jogador
 from inimigos import TEMPLATES_INIMIGOS, criar_inimigo
 from combate import batalha
+from itens import POCAO_VIDA
 
 def explorar(jogador):
     print("\nVocê saiu para explorar...")
@@ -18,7 +19,8 @@ def loop_jogo(jogador):
         print("1 - Ver status")
         print("2 - Explorar")
         print("3 - Descansar")
-        print("4 - Sair")
+        print("4 - Usar item")
+        print("5 - Sair")
 
         opcao = input("Escolha uma opção: ")
 
@@ -32,6 +34,8 @@ def loop_jogo(jogador):
             jogador.vida = jogador.vida_maxima
             print("Você descansou e recuperou toda sua vida!")
         elif opcao == "4":
+            jogador.usar_item()
+        elif opcao == "5":
             print("Até a próxima aventura!")
             break
 
@@ -39,6 +43,7 @@ def main():
 
     jogador = Jogador.criar_personagem()
     jogador.mostrar_status()
+    jogador.adicionar_item(POCAO_VIDA)
     loop_jogo(jogador)
 
 if __name__ == "__main__":
